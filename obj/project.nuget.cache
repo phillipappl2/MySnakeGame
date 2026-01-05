@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "Fzyc7P07JDs=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Bruger\\Desktop\\Projects\\Snake\\Snake.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Bruger\\.nuget\\packages\\raylib-cs\\7.0.2\\raylib-cs.7.0.2.nupkg.sha512"
+  ],
+  "logs": []
+}
