@@ -14,7 +14,6 @@
   <ItemGroup>
     <Folder Include="Components\" />
     <Folder Include="Core\" />
-    <Folder Include="Entities\" />
     <Folder Include="Scenes\" />
     <Folder Include="Systems\" />
     <Folder Include="Utils\" />
