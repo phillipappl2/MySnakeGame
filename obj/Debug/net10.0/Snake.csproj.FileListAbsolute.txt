@@ -20,3 +20,4 @@ C:\Users\Bruger\Desktop\Projects\Snake\obj\Debug\net10.0\refint\Snake.dll
 C:\Users\Bruger\Desktop\Projects\Snake\obj\Debug\net10.0\Snake.pdb
 C:\Users\Bruger\Desktop\Projects\Snake\obj\Debug\net10.0\Snake.genruntimeconfig.cache
 C:\Users\Bruger\Desktop\Projects\Snake\obj\Debug\net10.0\ref\Snake.dll
+C:\Users\Bruger\Desktop\Projects\Snake\obj\Debug\net10.0\Snake.sourcelink.json

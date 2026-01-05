@@ -7,7 +7,7 @@ class Program
 {
     static void Main()
     {
-        var game = new Game(600, 600, "Snake");
+        var game = new Game(1600, 700, "Snake");
         game.Run();
      
     }

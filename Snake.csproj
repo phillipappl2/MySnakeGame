@@ -15,8 +15,6 @@
     <Folder Include="Components\" />
     <Folder Include="Core\" />
     <Folder Include="Scenes\" />
-    <Folder Include="Systems\" />
-    <Folder Include="Utils\" />
   </ItemGroup>
 
 </Project>

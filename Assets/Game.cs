@@ -1,4 +1,7 @@
-﻿namespace Snake.Assets;
+﻿using Snake.Entities.Snake;
+using Snake.Utils;
+
+namespace Snake.Assets;
 using Raylib_cs;
 
 public class Game
@@ -16,6 +19,12 @@ public class Game
     //offentlige properties så andre klasser kan bruge
     private int Width => _width;
     private int Height => _height;
+
+    //_updatables inholder de classes som skal opdateres
+    
+    private readonly List<IUpdatable> _updatables = [];
+    private readonly List<IDrawable> _drawables = [];
+
     
     
     public Game(int width, int height, string title)
@@ -29,6 +38,7 @@ public class Game
         _width = width;
         _height = height;
         _title = title;
+        
     }
     
     public void Run()
@@ -41,26 +51,47 @@ public class Game
             Update();
             Draw();
         }
-        
-    }
 
+        Cleanup();
+
+    }
+    
     private void Update()
     {
         
+        foreach (var updatable in _updatables)
+        {
+            updatable.Update();
+        }
+    
     }
     
     private void Initalize()
     {
        
         Raylib.InitWindow(_width, _height, _title);
-        Raylib.SetTargetFPS(60);
+        Raylib.SetTargetFPS(5);
         
+        Regsister(new Player(0,0));
+        
+        Regsister(new Player(4,4));
+        
+
     }
 
     private void Draw()
     {
         Raylib.BeginDrawing();
         Raylib.ClearBackground(color:Color.RayWhite);
+        
+        foreach (var drawable in _drawables)
+        {
+            drawable.Draw();
+        }
+
+        
+        Raylib.DrawText($"Updatables: {_updatables.Count}", 10, 10, 20, Color.Black);
+
         
         Raylib.EndDrawing();
         
@@ -70,6 +101,19 @@ public class Game
     {
         
         Raylib.CloseWindow();
+        
+    }
+
+    private void Regsister(IUpdatable system)
+    {
+        
+        _updatables.Add(system);
+        
+        if (system is IDrawable drawable)
+        {
+            _drawables.Add(drawable);
+        }
+
         
     }
     
