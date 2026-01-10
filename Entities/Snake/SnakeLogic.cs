@@ -5,55 +5,60 @@ namespace Snake.Entities.Snake;
 
 public class SnakeLogic
 {
-    private readonly List<Body> _body;
+    private readonly List<Body> _bodySegments;
     
 
-    private int LastX;
-    private int LastY;
+    private int _lastX;
+    private int _lastY;
 
-    private readonly int SnakeCellSize = 100;
+    private readonly int _snakeCellSize = 100;
 
     public SnakeLogic(int posX, int posY)
     {
-        _body = [];
-        _body.Add(new Body(posX, posY));
+        //Makes the head of the snake at the given position.
+        _bodySegments = [new Body(posX, posY)];
 
-        LastX = posX;
-        LastY = posY;
+        _lastX = posX;
+        _lastY = posY;
     }
 
     internal void UpdateSnakeLogic(Direction direction)
     {
-        LastX = _body[^1].X;
-        LastY = _body[^1].Y;
-        for (var i = _body.Count - 1; i >= 1; i--)
+        _lastX = _bodySegments[^1].X; // or _body[body.count-1].X
+        _lastY = _bodySegments[^1].Y;// or _body[body.count-1].Y
+        
+        for (var i = _bodySegments.Count - 1; i >= 1; i--)
         {
-            _body[i].X = _body[i - 1].X;
-            _body[i].Y = _body[i - 1].Y;
+            _bodySegments[i].X = _bodySegments[i - 1].X;
+            _bodySegments[i].Y = _bodySegments[i - 1].Y;
         }
          
         if (direction == Direction.Up)
-            _body[0].Y -= 1;
+            _bodySegments[0].Y -= 1;
         else if (direction == Direction.Down)
-            _body[0].Y += 1;
+            _bodySegments[0].Y += 1;
         else if (direction == Direction.Left)
-            _body[0].X -= 1;
-        else if (direction == Direction.Right) _body[0].X += 1;
+            _bodySegments[0].X -= 1;
+        else if (direction == Direction.Right) _bodySegments[0].X += 1;
     }
     
     internal void Grow(Body body)
     {
-        body.SetPositon(LastX, LastY);
-        _body.Add(body);
+        
+        //even if you assign the body to a position in the parameter, it is overriden by the next line.
+        //Idk if this is a bad implementation or not.
+        body.SetPositon(_lastX, _lastY);
+        _bodySegments.Add(body);
     }
 
     private void Fill(Body body)
     {
-        Raylib.DrawRectangle(body.X * SnakeCellSize, body.Y * SnakeCellSize, SnakeCellSize, SnakeCellSize, Color.Green);
+        Raylib.DrawRectangle(body.X * _snakeCellSize, body.Y * _snakeCellSize, _snakeCellSize, _snakeCellSize, Color.Green);
     }
 
     public void Draw()
     {
-        for (var i = 0; i < _body.Count; i++) Fill(_body[i]);
+        foreach (var body in _bodySegments)
+            Fill(body);
     }
 }
