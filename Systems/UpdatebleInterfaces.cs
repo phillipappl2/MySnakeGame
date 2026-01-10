@@ -2,9 +2,7 @@
 
 public interface IUpdatable
 {
-    
     void Update();
-    
 }
 
 public interface IDrawable
