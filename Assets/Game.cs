@@ -7,6 +7,8 @@ using Raylib_cs;
 public class Game
 {
     
+    //Singleton pattern
+    
     private static Game? _instance;
     public static Game Instance
         => _instance ?? throw new InvalidOperationException("Game ikke initialiseret");
@@ -16,16 +18,15 @@ public class Game
     private readonly int _height;
     private readonly string _title;
     
-    //offentlige properties så andre klasser kan bruge
     private int Width => _width;
     private int Height => _height;
 
-    //_updatables inholder de classes som skal opdateres
+    //_updatables contains all the interfaces that need to be updated every frame.
+    //_drawables contain all the interfaces that need to be drawn every frame.
+    //It was important to separate the two because of the way the game loop works.
     
     private readonly List<IUpdatable> _updatables = [];
     private readonly List<IDrawable> _drawables = [];
-
-    
     
     public Game(int width, int height, string title)
     {
@@ -72,6 +73,8 @@ public class Game
         Raylib.InitWindow(_width, _height, _title);
         Raylib.SetTargetFPS(5);
         
+        //Updable systems are registered here.
+        
         Regsister(new Player(0,0));
         
         Regsister(new Player(4,4));
@@ -88,9 +91,6 @@ public class Game
         {
             drawable.Draw();
         }
-
-        
-        Raylib.DrawText($"Updatables: {_updatables.Count}", 10, 10, 20, Color.Black);
 
         
         Raylib.EndDrawing();
