@@ -47,6 +47,7 @@ public class Tempo
         return bpm.Value / numerator.Value;
     }
 
+    // counts up to 240 every min, 
     public async Task CountAsync(EvenNumber countTo, CancellationToken token = default)
     {
         var delayMs = (int)(TimeSpan.FromMinutes(1).TotalMilliseconds / countTo);
@@ -57,7 +58,7 @@ public class Tempo
                 var counter = i;
                 
                 foreach (var (interval, bpm, action) in _timeActions)
-                    if (counter % (interval * (countTo / bpm.Value) / interval) == 0)
+                    if (counter % (countTo / bpm.Value) == 0)
                         action();
 
                 await Task.Delay(delayMs, token);
