@@ -3,9 +3,9 @@ using Snake.Utils;
 
 namespace Snake.Entities.Snake;
 
-public class SnakeLogic
+public class Snake
 {
-    private readonly List<Body> _bodySegments;
+    private readonly List<Segment> _bodySegments;
     
 
     private int _lastX;
@@ -13,10 +13,10 @@ public class SnakeLogic
 
     private readonly int _snakeCellSize = 100;
 
-    public SnakeLogic(int posX, int posY)
+    public Snake(int posX, int posY)
     {
         //Makes the head of the snake at the given position.
-        _bodySegments = [new Body(posX, posY)];
+        _bodySegments = [new Segment(posX, posY)];
 
         _lastX = posX;
         _lastY = posY;
@@ -42,18 +42,18 @@ public class SnakeLogic
         else if (direction == Direction.Right) _bodySegments[0].X += 1;
     }
     
-    internal void Grow(Body body)
+    internal void Grow(Segment segment)
     {
         
         //even if you assign the body to a position in the parameter, it is overriden by the next line.
         //Idk if this is a bad implementation or not.
-        body.SetPositon(_lastX, _lastY);
-        _bodySegments.Add(body);
+        segment.SetPositon(_lastX, _lastY);
+        _bodySegments.Add(segment);
     }
 
-    private void Fill(Body body)
+    private void Fill(Segment segment)
     {
-        Raylib.DrawRectangle(body.X * _snakeCellSize, body.Y * _snakeCellSize, _snakeCellSize, _snakeCellSize, Color.Green);
+        Raylib.DrawRectangle(segment.X * _snakeCellSize, segment.Y * _snakeCellSize, _snakeCellSize, _snakeCellSize, Color.Green);
     }
 
     public void Draw()

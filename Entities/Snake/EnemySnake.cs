@@ -3,9 +3,9 @@ using Snake.Utils;
 
 namespace Snake.Entities.Snake;
 
-public class Player : SnakeLogic, IUpdatable, IDrawable
+public class EnemySnake : Snake, IUpdatable, IDrawable
 {
-    public Player(int posX, int posY) : base(posX, posY)
+    public EnemySnake(int posX, int posY) : base(posX, posY)
     {
         
     }

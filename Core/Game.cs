@@ -75,9 +75,9 @@ public class Game
         
         //Updable systems are registered here.
         
-        Regsister(new Player(0,0));
+        Regsister(new EnemySnake(0,0));
         
-        Regsister(new Player(4,4));
+        Regsister(new EnemySnake(4,4));
         
 
     }
