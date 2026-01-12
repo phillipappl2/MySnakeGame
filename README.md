@@ -47,9 +47,9 @@
 - 2000s emo xD
 ---
 ## Immediate plan:
-- make a good name
-- make 3 branches
+- make a good name -Done
+- make 3 branches - Done
 - make a diagram (Zuzana)
 	- think of how to structure it better?
 	- share diagram (at some point :D)
-- move the game to systems
+- move the game to systems -Done
