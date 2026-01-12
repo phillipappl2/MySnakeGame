@@ -22,7 +22,7 @@ public class Snake
         _lastY = posY;
     }
 
-    internal void UpdateSnakeLogic(Direction direction)
+    protected void UpdateOrder()
     {
         _lastX = _bodySegments[^1].X; // or _body[body.count-1].X
         _lastY = _bodySegments[^1].Y; // or _body[body.count-1].Y
@@ -32,7 +32,14 @@ public class Snake
             _bodySegments[i].X = _bodySegments[i - 1].X;
             _bodySegments[i].Y = _bodySegments[i - 1].Y;
         }
+        
+    }
 
+    public void Move(Direction direction)
+    {
+        
+        UpdateOrder();
+        
         if (direction == Direction.Up)
             _bodySegments[0].Y -= 1;
         else if (direction == Direction.Down)
@@ -42,7 +49,7 @@ public class Snake
         else if (direction == Direction.Right) _bodySegments[0].X += 1;
     }
 
-    internal void Grow(Segment segment)
+    void Grow(Segment segment)
     {
         //even if you assign the body to a position in the parameter, it is overriden by the next line.
         //Idk if this is a bad implementation or not.

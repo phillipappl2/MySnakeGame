@@ -61,9 +61,9 @@ public class Game
 
         //Updable systems are registered here.
 
-        Regsister(new EnemySnake(0, 0));
+        Regsister(new PlayerSnake(0, 0));
 
-        Regsister(new EnemySnake(4, 4));
+        Regsister(new PlayerSnake(4, 4));
     }
 
     private void Draw()
