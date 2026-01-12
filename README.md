@@ -47,7 +47,7 @@
 - 2000s emo xD
 ---
 ## Immediate plan:
--split the UpdateSnakeLogic into MoveSnake and  UpdateLogic
+- split the UpdateSnakeLogic into MoveSnake and  UpdateLogic
 - make a diagram (Zuzana)
 	- think of how to structure it better?
 	- share diagram (at some point :D)
