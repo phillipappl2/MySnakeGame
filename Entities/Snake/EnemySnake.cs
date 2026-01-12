@@ -7,7 +7,11 @@ public class EnemySnake : Snake, IUpdatable, IDrawable
 {
     public EnemySnake(int posX, int posY) : base(posX, posY)
     {
-        
+    }
+
+    public new void Draw()
+    {
+        base.Draw();
     }
 
     public void Update()
@@ -15,26 +19,11 @@ public class EnemySnake : Snake, IUpdatable, IDrawable
         Console.WriteLine("Player.Update() kaldes!");
 
         if (Raylib.IsKeyDown(KeyboardKey.A))
-        {
             UpdateSnakeLogic(Direction.Left);
-        }
         else if (Raylib.IsKeyDown(KeyboardKey.D))
-        {
             UpdateSnakeLogic(Direction.Right);
-        }
         else if (Raylib.IsKeyDown(KeyboardKey.W))
-        {
             UpdateSnakeLogic(Direction.Up);
-        }
-        else if (Raylib.IsKeyDown(KeyboardKey.S))
-        {
-            UpdateSnakeLogic(Direction.Down);
-        }
+        else if (Raylib.IsKeyDown(KeyboardKey.S)) UpdateSnakeLogic(Direction.Down);
     }
-    
-    public new void Draw()
-    {
-        base.Draw();
-    }
-
 }
