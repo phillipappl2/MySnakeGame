@@ -1,7 +1,7 @@
 ﻿using Raylib_cs;
 using System.Numerics;
 using Snake.Assets;
-using colors = Raylib_cs.Color;
+using Colors = Raylib_cs.Color;
 
 class Program
 {
@@ -9,6 +9,6 @@ class Program
     {
         var game = new Game(1600, 700, "Snake");
         game.Run();
-     
+    
     }
 }
