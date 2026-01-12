@@ -1,13 +1,12 @@
 ﻿namespace Snake.Entities.Snake;
 
-public class Body
+public class Segment
 {
-    
-    public Body(int x = 0, int y = 0)
+    public Segment(int x = 0, int y = 0)
     {
         SetPositon(x, y);
     }
-    
+
     public int X { get; set; }
     public int Y { get; set; }
 
