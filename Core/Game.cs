@@ -3,13 +3,8 @@ using Snake.Core.Timing;
 using Snake.Entities.Snake;
 using Snake.Utils;
 
-
 namespace Snake.Assets;
-<<<<<<<< HEAD:Systems/Game.cs
-using Raylib_cs;
-using Snake.Systems;
-========
->>>>>>>> 40a1923ab1473a564e0485cf5a4f70840b6b2b74:Core/Game.cs
+
 
 public class Game
 {
@@ -66,7 +61,7 @@ public class Game
         Tempo tempo = new Tempo();
         
         Raylib.InitWindow(Width, Height, _title);
-        Raylib.SetTargetFPS(5);
+        Raylib.SetTargetFPS(60);
 
         //Updable systems are registered here.
 
