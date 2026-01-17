@@ -1,4 +1,5 @@
 ﻿using Raylib_cs;
+using Snake.Core.Timing;
 using Snake.Utils;
 
 namespace Snake.Entities.Snake;
@@ -6,13 +7,18 @@ namespace Snake.Entities.Snake;
 public class Snake
 {
     private readonly List<Segment> _bodySegments;
-
     private readonly int _snakeCellSize = 100;
 
+    private Direction _direction = Direction.Left;
 
     private int _lastX;
     private int _lastY;
 
+    public void SetDirection(Direction direction)
+    {
+        _direction = direction;
+    }
+    
     public Snake(int posX, int posY)
     {
         //Makes the head of the snake at the given position.
@@ -20,9 +26,26 @@ public class Snake
 
         _lastX = posX;
         _lastY = posY;
+        
+        Tempo tempo = Tempo.Instance;
+        tempo.OnEvery(new EvenNumber(4),new Bpm(120), () => Move(_direction));
+    }
+    
+    public void Move(Direction direction)
+    {
+        
+        UpdateOrder();
+        
+        if (_direction == Direction.Up)
+            _bodySegments[0].Y -= 1;
+        else if (_direction == Direction.Down)
+            _bodySegments[0].Y += 1;
+        else if (_direction == Direction.Left)
+            _bodySegments[0].X -= 1;
+        else if (_direction == Direction.Right) _bodySegments[0].X += 1;
     }
 
-    protected void UpdateOrder()
+    private void UpdateOrder()
     {
         _lastX = _bodySegments[^1].X; // or _body[body.count-1].X
         _lastY = _bodySegments[^1].Y; // or _body[body.count-1].Y
@@ -34,28 +57,16 @@ public class Snake
         }
         
     }
+    
 
-    public void Move(Direction direction)
-    {
-        
-        UpdateOrder();
-        
-        if (direction == Direction.Up)
-            _bodySegments[0].Y -= 1;
-        else if (direction == Direction.Down)
-            _bodySegments[0].Y += 1;
-        else if (direction == Direction.Left)
-            _bodySegments[0].X -= 1;
-        else if (direction == Direction.Right) _bodySegments[0].X += 1;
-    }
-
-    void Grow(Segment segment)
+     public void Grow(Segment segment)
     {
         //even if you assign the body to a position in the parameter, it is overriden by the next line.
         //Idk if this is a bad implementation or not.
         segment.SetPositon(_lastX, _lastY);
         _bodySegments.Add(segment);
     }
+    
 
     private void Fill(Segment segment)
     {

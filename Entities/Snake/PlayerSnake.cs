@@ -19,12 +19,12 @@ public class PlayerSnake : Snake, IUpdatable, IDrawable
 
 
         if (Raylib.IsKeyDown(KeyboardKey.A))
-            Move(Direction.Left);
+            SetDirection(Direction.Left);
         else if (Raylib.IsKeyDown(KeyboardKey.D))
-            Move(Direction.Right);
+            SetDirection(Direction.Right);
         else if (Raylib.IsKeyDown(KeyboardKey.W))
-            Move(Direction.Up);
+            SetDirection(Direction.Up);
         else if (Raylib.IsKeyDown(KeyboardKey.S))
-            Move(Direction.Down);
+            SetDirection(Direction.Down);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Raylib_cs;
+using Snake.Core.Timing;
 using Snake.Entities.Snake;
 using Snake.Utils;
 
@@ -62,21 +63,10 @@ public class Game
 
     private void Initalize()
     {
+        Tempo tempo = new Tempo();
+        
         Raylib.InitWindow(Width, Height, _title);
         Raylib.SetTargetFPS(5);
-<<<<<<<< HEAD:Systems/Game.cs
-        
-        //Updable systems are registered here.
-        
-        Regsister(new Player(0,0));
-        
-        Regsister(new Player(4,4));
-
-        Tempo tempo = new Tempo();
-
-        tempo.OnEvery(new EvenNumber(4), new Bpm(60), () => Console.Write("Boom"));
-========
->>>>>>>> 40a1923ab1473a564e0485cf5a4f70840b6b2b74:Core/Game.cs
 
         //Updable systems are registered here.
 
