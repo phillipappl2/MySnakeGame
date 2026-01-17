@@ -12,7 +12,7 @@ public class Player : SnakeLogic, IUpdatable, IDrawable
 
     public void Update()
     {
-        Console.WriteLine("Player.Update() kaldes!");
+
 
         if (Raylib.IsKeyDown(KeyboardKey.A))
         {
