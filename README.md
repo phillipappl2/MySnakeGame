@@ -47,9 +47,13 @@
 - 2000s emo xD
 ---
 ## Immediate plan:
-- make a good name
-- make 3 branches
+
 - make a diagram (Zuzana)
 	- think of how to structure it better?
 	- share diagram (at some point :D)
-- move the game to systems
+  ## Completet
+- split the UpdateSnakeLogic into MoveSnake and  UpdateLogic
+- make a good name 
+- make 3 branches 
+- move the game to systems 
+
