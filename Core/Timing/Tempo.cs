@@ -2,36 +2,28 @@
 
 public class Tempo
 {
-
     //it's important that every int is even a number.
     //Tempo class is based on an idea of music theory.
-    
-    
     //Singleton pattern 
 
     private static Tempo? _instance;
     public static Tempo Instance
-        => _instance ?? throw new InvalidOperationException("Tempo ikke initialiseret");
+        => _instance ?? throw new InvalidOperationException("Tempo isn't initialised");
     
     //TimeActions
     public delegate void TimeAction();
     private readonly List<(Bpm bpm, TimeAction action)> _timeActions = new();
     
     //usage:
-    //tempo.OnEvery(new EvenNumber(4),new Bpm(240), beat => Lamba expression for the action);
-    
+    //tempo.OnEvery(new WholeNumber(4),new Bpm(240), beat => Lamba expression for the action);
     public Tempo()
     {
-        if (_instance != null) throw new InvalidOperationException("Game er allerede initialiseret");
-
+        if (_instance != null) throw new InvalidOperationException("Tempo is already initialised");
         _instance = this;
-
-        _ = CountAsync(new EvenNumber(240));
+        _ = CountAsync(240);
     }
-    
- 
 
-    public void OnEvery(EvenNumber interval, Bpm bpm, TimeAction action)
+    public void OnEvery(int interval, Bpm bpm, TimeAction action)
     {
         _timeActions.Add((bpm, action));
     }
@@ -41,14 +33,13 @@ public class Tempo
         _timeActions.RemoveAll(x => x.action == action);
     }
 
-
-    public int GetBarsPerMinute(EvenNumber numerator, Bpm bpm)
+    public int GetBarsPerMinute(int numerator, Bpm bpm)
     {
-        return bpm.Value / numerator.Value;
+        return bpm.Value / numerator;
     }
 
-    // counts up to 240 every min, 
-    public async Task CountAsync(EvenNumber countTo, CancellationToken token = default)
+    // counts up to desired bpm (right now 240) every min, 
+    public async Task CountAsync(int countTo, CancellationToken token = default)
     {
         var delayMs = (int)(TimeSpan.FromMinutes(1).TotalMilliseconds / countTo);
 
@@ -72,23 +63,5 @@ public class Bpm // Beats Per Minute
     {
         Value = value;
     }
-
     public int Value { get; set; }
-}
-
-public class EvenNumber
-{
-    public EvenNumber(int value)
-    {
-        if (value % 2 != 0) throw new ArgumentException("The number must be even");
-
-        Value = value;
-    }
-
-    public int Value { get; }
-
-    public static implicit operator int(EvenNumber evenNumber)
-    {
-        return evenNumber.Value;
-    }
 }

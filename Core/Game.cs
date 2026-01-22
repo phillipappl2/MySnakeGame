@@ -38,7 +38,8 @@ public class Game
 
     private int Height { get; }
 
-    public void Run()
+
+    public void GameLoop()
     {
         Initalize();
 
@@ -51,23 +52,21 @@ public class Game
         Cleanup();
     }
 
-    private void Update()
-    {
-        foreach (var updatable in _updatables) updatable.Update();
-    }
-
     private void Initalize()
     {
         Tempo tempo = new Tempo();
-        
+
         Raylib.InitWindow(Width, Height, _title);
         Raylib.SetTargetFPS(60);
 
-        //Updable systems are registered here.
+        //Updable objects are registered here
+        RegsisterObject(new PlayerSnake(0, 0));
+        RegsisterObject(new PlayerSnake(4, 4));
+    }
 
-        Regsister(new PlayerSnake(0, 0));
-
-        Regsister(new PlayerSnake(4, 4));
+    private void Update()
+    {
+        foreach (var updatable in _updatables) updatable.Update();
     }
 
     private void Draw()
@@ -77,7 +76,6 @@ public class Game
 
         foreach (var drawable in _drawables) drawable.Draw();
 
-
         Raylib.EndDrawing();
     }
 
@@ -86,7 +84,7 @@ public class Game
         Raylib.CloseWindow();
     }
 
-    private void Regsister(IUpdatable system)
+    private void RegsisterObject(IUpdatable system)
     {
         _updatables.Add(system);
 

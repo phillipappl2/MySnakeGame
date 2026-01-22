@@ -26,14 +26,13 @@ public class Snake
 
         _lastX = posX;
         _lastY = posY;
-        
+
         Tempo tempo = Tempo.Instance;
-        tempo.OnEvery(new EvenNumber(4),new Bpm(120), () => Move(_direction));
+        tempo.OnEvery(4, new Bpm(120), () => Move(_direction));
     }
     
     public void Move(Direction direction)
-    {
-        
+    {   
         UpdateOrder();
         
         if (_direction == Direction.Up)
@@ -55,11 +54,9 @@ public class Snake
             _bodySegments[i].X = _bodySegments[i - 1].X;
             _bodySegments[i].Y = _bodySegments[i - 1].Y;
         }
-        
     }
     
-
-     public void Grow(Segment segment)
+    public void Grow(Segment segment)
     {
         //even if you assign the body to a position in the parameter, it is overriden by the next line.
         //Idk if this is a bad implementation or not.
