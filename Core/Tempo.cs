@@ -33,11 +33,6 @@ public class Tempo
         _timeActions.RemoveAll(x => x.action == action);
     }
 
-    public int GetBarsPerMinute(int numerator, Bpm bpm)
-    {
-        return bpm.Value / numerator;
-    }
-
     // counts up to desired bpm (right now 240) every min, 
     public async Task CountAsync(int countTo, CancellationToken token = default)
     {
@@ -57,11 +52,3 @@ public class Tempo
     }
 }
 
-public class Bpm // Beats Per Minute
-{
-    public Bpm(int value)
-    {
-        Value = value;
-    }
-    public int Value { get; set; }
-}

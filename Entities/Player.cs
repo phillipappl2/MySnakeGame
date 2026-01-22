@@ -14,10 +14,8 @@ public class PlayerSnake : Snake, IUpdatable, IDrawable
         base.Draw();
     }
 
-    public void Update()
+    public void UpdateDirection()
     {
-
-
         if (Raylib.IsKeyDown(KeyboardKey.A))
             SetDirection(Direction.Left);
         else if (Raylib.IsKeyDown(KeyboardKey.D))

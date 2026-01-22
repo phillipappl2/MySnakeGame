@@ -45,7 +45,7 @@ public class Game
 
         while (!Raylib.WindowShouldClose())
         {
-            Update();
+            UpdateDirections();
             Draw();
         }
 
@@ -60,19 +60,19 @@ public class Game
         Raylib.SetTargetFPS(60);
 
         //Updable objects are registered here
-        RegsisterObject(new PlayerSnake(0, 0));
+        //RegsisterObject(new PlayerSnake(0, 0));
         RegsisterObject(new PlayerSnake(4, 4));
     }
 
-    private void Update()
-    {
-        foreach (var updatable in _updatables) updatable.Update();
+    private void UpdateDirections()
+    { 
+        foreach (var updatable in _updatables) updatable.UpdateDirection();
     }
 
     private void Draw()
     {
         Raylib.BeginDrawing();
-        Raylib.ClearBackground(Color.RayWhite);
+        Raylib.ClearBackground(Color.LightGray);
 
         foreach (var drawable in _drawables) drawable.Draw();
 
