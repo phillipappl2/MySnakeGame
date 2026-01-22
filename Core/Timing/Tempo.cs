@@ -1,10 +1,10 @@
-﻿namespace Snake.Systems;
+﻿namespace Snake.Core.Timing;
 
 public class Tempo
 {
 
-    //its important that every int is even a number.
-    //Tempo class is based on idea of music theory.
+    //it's important that every int is even a number.
+    //Tempo class is based on an idea of music theory.
     
     
     //Singleton pattern 
@@ -15,7 +15,7 @@ public class Tempo
     
     //TimeActions
     public delegate void TimeAction();
-    private readonly List<(EvenNumber interval, Bpm bpm, TimeAction action)> _timeActions = new();
+    private readonly List<(Bpm bpm, TimeAction action)> _timeActions = new();
     
     //usage:
     //tempo.OnEvery(new EvenNumber(4),new Bpm(240), beat => Lamba expression for the action);
@@ -33,7 +33,7 @@ public class Tempo
 
     public void OnEvery(EvenNumber interval, Bpm bpm, TimeAction action)
     {
-        _timeActions.Add((interval, bpm, action));
+        _timeActions.Add((bpm, action));
     }
 
     public void Remove(TimeAction action)
@@ -57,7 +57,7 @@ public class Tempo
             {
                 var counter = i;
                 
-                foreach (var (interval, bpm, action) in _timeActions)
+                foreach (var ( bpm, action) in _timeActions)
                     if (counter % (countTo / bpm.Value) == 0)
                         action();
 

@@ -9,6 +9,5 @@ class Program
     {
         var game = new Game(1600, 700, "Snake");
         game.Run();
-    
     }
 }
