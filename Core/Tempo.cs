@@ -7,8 +7,8 @@ public class Tempo
     //Singleton pattern 
 
     private static Tempo? _instance;
-    public static Tempo Instance
-        => _instance ?? throw new InvalidOperationException("Tempo isn't initialised");
+    //public static Tempo Instance
+    //    => _instance ?? throw new InvalidOperationException("Tempo isn't initialised");
     
     //TimeActions
     public delegate void TimeAction();

@@ -27,11 +27,11 @@ public class Snake
         _lastX = posX;
         _lastY = posY;
 
-        Tempo tempo = Tempo.Instance;
-        tempo.OnEvery(4, new Bpm(120), () => Move(_direction));
+        //Tempo tempo = Tempo.Instance;
+        //tempo.OnEvery(4, new Bpm(120), () => Move());
     }
     
-    public void Move(Direction direction)
+    public void Move()
     {   
         UpdateOrder();
         
@@ -63,11 +63,11 @@ public class Snake
         segment.SetPositon(_lastX, _lastY);
         _bodySegments.Add(segment);
     }
-    
 
     private void Fill(Segment segment)
     {
-        Raylib.DrawRectangle(segment.X * _snakeCellSize, segment.Y * _snakeCellSize, _snakeCellSize, _snakeCellSize,
+        Raylib.DrawRectangle(segment.X * _snakeCellSize, 
+            segment.Y * _snakeCellSize, _snakeCellSize, _snakeCellSize,
             Color.Green);
     }
 
