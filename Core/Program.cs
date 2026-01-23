@@ -8,6 +8,6 @@ class Program
     static void Main()
     {
         var game = new Game(1600, 700, "Snake");
-        game.Run();
+        game.GameLoop();
     }
 }

@@ -26,14 +26,13 @@ public class Snake
 
         _lastX = posX;
         _lastY = posY;
-        
-        Tempo tempo = Tempo.Instance;
-        tempo.OnEvery(new EvenNumber(4),new Bpm(120), () => Move(_direction));
+
+        //Tempo tempo = Tempo.Instance;
+        //tempo.OnEvery(4, new Bpm(120), () => Move());
     }
     
-    public void Move(Direction direction)
-    {
-        
+    public void Move()
+    {   
         UpdateOrder();
         
         if (_direction == Direction.Up)
@@ -55,22 +54,20 @@ public class Snake
             _bodySegments[i].X = _bodySegments[i - 1].X;
             _bodySegments[i].Y = _bodySegments[i - 1].Y;
         }
-        
     }
     
-
-     public void Grow(Segment segment)
+    public void Grow(Segment segment)
     {
         //even if you assign the body to a position in the parameter, it is overriden by the next line.
         //Idk if this is a bad implementation or not.
         segment.SetPositon(_lastX, _lastY);
         _bodySegments.Add(segment);
     }
-    
 
     private void Fill(Segment segment)
     {
-        Raylib.DrawRectangle(segment.X * _snakeCellSize, segment.Y * _snakeCellSize, _snakeCellSize, _snakeCellSize,
+        Raylib.DrawRectangle(segment.X * _snakeCellSize, 
+            segment.Y * _snakeCellSize, _snakeCellSize, _snakeCellSize,
             Color.Green);
     }
 

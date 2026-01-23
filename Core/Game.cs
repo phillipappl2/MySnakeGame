@@ -5,90 +5,103 @@ using Snake.Utils;
 
 namespace Snake.Assets;
 
+
 public class Game
 {
     //Singleton pattern
-
     private static Game? _instance;
-    private readonly List<IDrawable> _drawables = [];
     private readonly string _title;
+    //Tempo tempo = new Tempo();
+    int MaxBPM = 240;
+    int currentBPM = 0;
+    Player player = new Player(4, 4);
 
     //_updatables contains all the interfaces that need to be updated every frame.
     //_drawables contain all the interfaces that need to be drawn every frame.
     //It was important to separate the two because of the way the game loop works.
-
-    private readonly List<IUpdatable> _updatables = [];
-
+    private List<IDrawable> _drawables = [];
+    private List<IUpdatable> _updatables = [];
 
     public Game(int width, int height, string title)
     {
-        if (_instance != null) throw new InvalidOperationException("Game er allerede initialiseret");
-
         _instance = this;
         Width = width;
         Height = height;
         _title = title;
     }
-
-    public static Game Instance
-        => _instance ?? throw new InvalidOperationException("Game ikke initialiseret");
-
     private int Width { get; }
-
     private int Height { get; }
 
-    public void Run()
+    public void GameLoop()
     {
         Initalize();
 
         while (!Raylib.WindowShouldClose())
         {
-            Update();
+            HandleDirections();
+            UpdateDirections();
+            MoveSnakes();
             Draw();
         }
 
-        Cleanup();
-    }
-
-    private void Update()
-    {
-        foreach (var updatable in _updatables) updatable.Update();
+        Finalise();
     }
 
     private void Initalize()
     {
-        Tempo tempo = new Tempo();
-        
         Raylib.InitWindow(Width, Height, _title);
         Raylib.SetTargetFPS(60);
 
-        //Updable systems are registered here.
+        //Updable objects are registered here
+        //RegsisterObject(new Player(0, 0));
+        RegsisterObject(player);
+    }
+    private void RegsisterObject(IUpdatable system)
+    {
+        _updatables.Add(system);
 
-        Regsister(new PlayerSnake(0, 0));
+        if (system is IDrawable drawable) _drawables.Add(drawable);
+    }
 
-        Regsister(new PlayerSnake(4, 4));
+    private void HandleDirections()
+    {
+        if (Raylib.IsKeyDown(KeyboardKey.A))
+            player.SetDirection(Direction.Left);
+        else if (Raylib.IsKeyDown(KeyboardKey.D))
+            player.SetDirection(Direction.Right);
+        else if (Raylib.IsKeyDown(KeyboardKey.W))
+            player.SetDirection(Direction.Up);
+        else if (Raylib.IsKeyDown(KeyboardKey.S))
+            player.SetDirection(Direction.Down);
+    }
+
+    private void UpdateDirections()
+    { 
+        foreach (var updatable in _updatables) updatable.UpdateDirection();
+    }
+
+    private void MoveSnakes()
+    {
+        if ((currentBPM % (MaxBPM / 16)) == 0)
+        {
+            foreach (var updatable in _updatables) updatable.Move();
+        }
+
+        currentBPM++;
+        currentBPM = currentBPM % MaxBPM;
     }
 
     private void Draw()
     {
         Raylib.BeginDrawing();
-        Raylib.ClearBackground(Color.RayWhite);
 
         foreach (var drawable in _drawables) drawable.Draw();
-
-
+        Raylib.ClearBackground(Color.LightGray);
         Raylib.EndDrawing();
     }
 
-    private void Cleanup()
+    private void Finalise()
     {
         Raylib.CloseWindow();
-    }
-
-    private void Regsister(IUpdatable system)
-    {
-        _updatables.Add(system);
-
-        if (system is IDrawable drawable) _drawables.Add(drawable);
     }
 }

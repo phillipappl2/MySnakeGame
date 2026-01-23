@@ -2,5 +2,6 @@
 
 public interface IUpdatable
 {
-    void Update();
+    void UpdateDirection();
+    void Move();
 }
