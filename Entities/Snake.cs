@@ -18,7 +18,7 @@ public class Snake
     {
         _direction = direction;
     }
-    
+
     public Snake(int posX, int posY)
     {
         //Makes the head of the snake at the given position.
@@ -30,18 +30,19 @@ public class Snake
         //Tempo tempo = Tempo.Instance;
         //tempo.OnEvery(4, new Bpm(120), () => Move());
     }
-    
+
     public void Move()
-    {   
+    {
         UpdateOrder();
-        
+
         if (_direction == Direction.Up)
             _bodySegments[0].Y -= 1;
         else if (_direction == Direction.Down)
             _bodySegments[0].Y += 1;
         else if (_direction == Direction.Left)
             _bodySegments[0].X -= 1;
-        else if (_direction == Direction.Right) _bodySegments[0].X += 1;
+        else if (_direction == Direction.Right)
+            _bodySegments[0].X += 1;
     }
 
     private void UpdateOrder()
@@ -55,7 +56,7 @@ public class Snake
             _bodySegments[i].Y = _bodySegments[i - 1].Y;
         }
     }
-    
+
     public void Grow(Segment segment)
     {
         //even if you assign the body to a position in the parameter, it is overriden by the next line.
@@ -66,9 +67,13 @@ public class Snake
 
     private void Fill(Segment segment)
     {
-        Raylib.DrawRectangle(segment.X * _snakeCellSize, 
-            segment.Y * _snakeCellSize, _snakeCellSize, _snakeCellSize,
-            Color.Green);
+        Raylib.DrawRectangle(
+            segment.X * _snakeCellSize,
+            segment.Y * _snakeCellSize,
+            _snakeCellSize,
+            _snakeCellSize,
+            Color.Red
+        );
     }
 
     public void Draw()

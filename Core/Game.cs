@@ -16,9 +16,13 @@ public class Game
     int currentBPM = 0;
     Player player = new Player(4, 4);
 
-    //_updatables contains all the interfaces that need to be updated every frame.
-    //_drawables contain all the interfaces that need to be drawn every frame.
-    //It was important to separate the two because of the way the game loop works.
+    public GameMap gameMap1;
+
+    //_updatables contains all the interfaces that nee      
+    // var layerList = d. be updated every frame.
+    //_drawables contai     
+    // var layerList = n all the interfaces that need. be drawn every frame.
+    //It was important. separate the two because of the way the game loop works.
     private List<IDrawable> _drawables = [];
     private List<IUpdatable> _updatables = [];
 
@@ -54,7 +58,33 @@ public class Game
 
         //Updable objects are registered here
         //RegsisterObject(new Player(0, 0));
+
+        Door t = new Door(new TextureRectangle("/home/phillip/projects/MySnakeGame/resources/Texture/Test/Happy_smiley_face.png",100,100));
+         Door r = new Door(new Rectangle(Color.Blue, 100,100));
+
+        AbstractObject[,] staticMetrix = 
+        {
+        {null, t   , t   , t   , t },
+        {t, null, r, null, t },
+        {t, r, r, r, t },
+        {t, null, r   , null, t },
+        {t, t   , t   , t   , null }
+        };
+
+    
+    
+        Layer staticLayer = new Layer(LayerType.staticLayer,staticMetrix, "staticLayer");
+
+        var layerList = new List<Layer>(); layerList.Add(staticLayer);
+
+        Level level = new Level(layerList);
+        
+        GameMap gameMap = new GameMap();
+        gameMap.LoadLevel(level);
+
         RegsisterObject(player);
+
+
     }
     private void RegsisterObject(IUpdatable system)
     {
@@ -95,6 +125,7 @@ public class Game
     {
         Raylib.BeginDrawing();
 
+        GameMap._instance.Draw();
         foreach (var drawable in _drawables) drawable.Draw();
         Raylib.ClearBackground(Color.LightGray);
         Raylib.EndDrawing();
