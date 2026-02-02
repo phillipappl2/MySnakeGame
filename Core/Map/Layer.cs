@@ -1,15 +1,18 @@
+using System.Diagnostics;
+using System.Text;
+using System.Text.Json;
 using Raylib_cs;
 
 public class Layer
 {
-    public int Width{get;}
-    public int Height{get;}
-    public string LayerName{get;set;}
-    public LayerType LayerType{get;}
+    public int Width { get; }
+    public int Height { get; }
+    public string LayerName { get; set; }
+    public LayerType LayerType { get; }
 
-    private AbstractObject[,] _layerMetrix;
+    public AbstractObject[,] _layerMetrix{ get; set; }
 
-    public Layer(LayerType layerType, AbstractObject[,] layerMetix, string layerName)
+    public Layer(LayerType layerType, string layerName,AbstractObject[,] layerMetix)
     {
 
         this.LayerType = layerType;
@@ -18,7 +21,7 @@ public class Layer
         _layerMetrix = layerMetix;
         this.Width = layerMetix.GetLength(0);
         this.Height = layerMetix.GetLength(1);
-        
+
     }
 
     public bool CompereTypes(int x, int y, Type ObecjtType)
@@ -75,28 +78,70 @@ public class Layer
 
     public void Draw()
     {
-        
-         for (int x = 0; x < Width; x++)
-        {
-            
+        for (int x = 0; x < Width; x++)
             for (int y = 0; y < Height; y++)
-            {
-
-                if(_layerMetrix[x,y] is not null)
+                if (_layerMetrix[x, y] is not null)
                 {
-                    
-                     if(_layerMetrix[x,y] is IdrawObjcet drawObject)
+                    if (_layerMetrix[x, y] is IdrawObjcet drawObject)
                     {
-                        
-                        drawObject.Draw(x,y);
+
+                        drawObject.Draw(x, y);
 
                     }
 
                 }
-
-            }
-
-        }
-
+        
+        
     }
+
+    public string JsonBuilder()
+    {
+
+        var options = new JsonWriterOptions
+        {
+            Indented = true
+        };
+
+        using var stream = new MemoryStream();
+        using var writer = new Utf8JsonWriter(stream,options);
+
+        writer.WriteStartObject();
+        writer.WriteString("layerType", LayerType.ToString());
+        writer.WriteString("LayerName", LayerName);
+
+
+      
+        for (int x = 0; x < Width; x++)
+       {
+            writer.WriteStartObject("ColumnObject");
+            writer.WriteStartArray($"Column_{x}");
+            for (int y = 0; y < Height; y++)
+            {
+                if(_layerMetrix[x,y] is not null)
+                {
+                  writer.WriteStringValue(PolymorphicJson.AbstractObjectBuilder(_layerMetrix[x,y]));
+                }
+                else
+                {
+                   writer.WriteStringValue("null");
+                }
+            }
+            writer.WriteEndArray();
+            writer.WriteEndObject();
+       }
+       
+        writer.WriteEndObject();
+        writer.Flush();
+        return Encoding.UTF8.GetString(stream.ToArray());
+    }
+
+
+     public static Layer JsonBuilder(string jsonString) // relly need to clean this up. To much AI slop fix.
+     {
+
+      throw new NotImplementedException();
+
+     }
 }
+
+

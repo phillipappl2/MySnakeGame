@@ -3,7 +3,7 @@ using System.Dynamic;
 public class Level
 {
 
-    private List<Layer> _layers;
+    public List<Layer> _layers{ get; set; }
 
     public Level(List<Layer> layers)
     {
@@ -34,7 +34,6 @@ public class Level
         }
     }
 
-  //Layer only if only on type of that layer
   public bool GetLayer(LayerType layerType,out List<Layer> layer)
   {
     
@@ -47,14 +46,31 @@ public class Level
   }
 
   //Layer of type with name.
-  public bool GetLayer(LayerType layerType,string layerName,out List<Layer> layer)
+  public bool GetLayer(LayerType layerType,string layerName,Layer layer)
   {
     
     layer = _layers
         .Where(p => p.LayerType == layerType && p.LayerName == layerName)
-        .ToList();
+        .FirstOrDefault()!;
 
-    return layer.Count > 0;
+    return layer != null;
+
+  }
+
+  public void AddLayer(Layer layer)
+  {
+    
+    _layers.Add(layer);
+
+  }
+
+  public void AddLayer(List<Layer> layer)
+  {
+    
+    foreach(var l in layer)
+    {
+        _layers.Add(l);
+    }
 
   }
 
@@ -65,4 +81,15 @@ public class Level
 
   }
 
+  public void Draw()
+  {
+    
+    foreach(var layer in _layers)
+    {
+        
+        layer.Draw();
+
+    }
+
+  }
 }

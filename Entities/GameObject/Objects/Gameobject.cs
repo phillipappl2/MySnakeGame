@@ -1,9 +1,9 @@
 using Raylib_cs;
 
-public class Gameoject : AbstractObject
+public abstract class Gameoject : AbstractObject
 {
-    //private Raylib_cs.Texture2D _sprite;
 
+    
     public Gameoject()
     {
     

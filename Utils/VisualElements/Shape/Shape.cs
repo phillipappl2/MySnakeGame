@@ -8,5 +8,5 @@ public abstract class Shape : VisualElements
     {
         this.Color = color;
     }
-
+   
 }

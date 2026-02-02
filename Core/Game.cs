@@ -1,4 +1,5 @@
-﻿using Raylib_cs;
+﻿using System.Diagnostics;
+using Raylib_cs;
 using Snake.Core.Timing;
 using Snake.Entities.Snake;
 using Snake.Utils;
@@ -59,28 +60,39 @@ public class Game
         //Updable objects are registered here
         //RegsisterObject(new Player(0, 0));
 
-        Door t = new Door(new TextureRectangle("/home/phillip/projects/MySnakeGame/resources/Texture/Test/Happy_smiley_face.png",100,100));
-         Door r = new Door(new Rectangle(Color.Blue, 100,100));
+        //Door t = new Door(new TextureRectangle("/resources/Texture/Test/Happy_smiley_face.png",100,100));
+        var Rectangle1 = new TextureRectangle("/resources/Texture/Test/Happy_smiley_face.png",100,100);
+       // Console.WriteLine(Rectangle1.JsonDestructor()+"here");
+
+
+        Wall r = new Wall(Rectangle1);
+
+        var stringtest = PolymorphicJson.AbstractObjectBuilder(r);
+        Console.WriteLine(stringtest + " here here");
+
 
         AbstractObject[,] staticMetrix = 
         {
-        {null, t   , t   , t   , t },
-        {t, null, r, null, t },
-        {t, r, r, r, t },
-        {t, null, r   , null, t },
-        {t, t   , t   , t   , null }
+        {null, null, null, null, null },
+        {null, null, r, null, null },
+        {null, r,    r, r, null },
+        {null, null, r, null, null },
+        {null, null   , null   , null   , null }
         };
 
     
     
-        Layer staticLayer = new Layer(LayerType.staticLayer,staticMetrix, "staticLayer");
-
+        Layer staticLayer = new Layer(LayerType.staticLayer, "staticLayer",staticMetrix);
+         
         var layerList = new List<Layer>(); layerList.Add(staticLayer);
 
         Level level = new Level(layerList);
         
         GameMap gameMap = new GameMap();
         gameMap.LoadLevel(level);
+       
+   
+
 
         RegsisterObject(player);
 

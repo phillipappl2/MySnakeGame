@@ -1,9 +1,12 @@
+using System.Text.Json.Serialization;
 using Raylib_cs;
 
 public class Door : StaticStructure, IdrawObjcet
 {
 
-    private bool isOpen = false;
+    public bool isOpen { get; private set; }
+
+    [JsonIgnore]
     private VisualElements visualElements;
 
     public Door(VisualElements visualElements)

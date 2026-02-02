@@ -20,12 +20,7 @@ public class GameMap : IDrawable
      public void Draw()
     {
 
-        foreach(var layer in LoadedLevel.GetAllLayes())
-        {
-            
-            layer.Draw();
-
-        }
+        LoadedLevel.Draw();
 
     }
 
