@@ -61,7 +61,7 @@ public class Game
         //RegsisterObject(new Player(0, 0));
 
         //Door t = new Door(new TextureRectangle("/resources/Texture/Test/Happy_smiley_face.png",100,100));
-        var Rectangle1 = new TextureRectangle("/resources/Texture/Test/Happy_smiley_face.png",100,100);
+        var Rectangle1 = new Rectangle(Color.Blue, 100,100);
        // Console.WriteLine(Rectangle1.JsonDestructor()+"here");
 
 
@@ -83,8 +83,13 @@ public class Game
     
     
         Layer staticLayer = new Layer(LayerType.staticLayer, "staticLayer",staticMetrix);
+
+        var test0 = staticLayer.JsonBuilder();
+        Console.Write(test0);
+
+        var test = Layer.JsonBuilder(test0);
          
-        var layerList = new List<Layer>(); layerList.Add(staticLayer);
+        var layerList = new List<Layer>(); layerList.Add(test);
 
         Level level = new Level(layerList);
         

@@ -110,10 +110,10 @@ public class Layer
         writer.WriteString("LayerName", LayerName);
 
 
-      
+         writer.WriteStartObject("ColumnObject");
         for (int x = 0; x < Width; x++)
        {
-            writer.WriteStartObject("ColumnObject");
+         
             writer.WriteStartArray($"Column_{x}");
             for (int y = 0; y < Height; y++)
             {
@@ -127,8 +127,9 @@ public class Layer
                 }
             }
             writer.WriteEndArray();
-            writer.WriteEndObject();
+          
        }
+         writer.WriteEndObject();
        
         writer.WriteEndObject();
         writer.Flush();
@@ -138,10 +139,45 @@ public class Layer
 
      public static Layer JsonBuilder(string jsonString) // relly need to clean this up. To much AI slop fix.
      {
+        var objects = JsonDocument.Parse(jsonString);
 
-      throw new NotImplementedException();
+        string StringLayerType = objects.RootElement.GetProperty("layerType").GetString() ?? "";
+        LayerType layerType = (LayerType)Enum.Parse(typeof(LayerType), StringLayerType);
 
-     }
+        string LayerName = objects.RootElement.GetProperty("LayerName").GetString() ?? "";
+
+      var columnObject = objects.RootElement.GetProperty("ColumnObject");
+
+      int width = columnObject.EnumerateObject().Count();
+      int height = columnObject.EnumerateObject().First().Value.GetArrayLength();
+
+
+      AbstractObject[,] abstractObjectMetrix = new AbstractObject[width,height];
+        int x = 0;
+        foreach (var column in columnObject.EnumerateObject())
+        {
+            
+            string columnName = column.Name; // "Column_0", "Column_1", etc.
+            JsonElement columnArray = column.Value;
+            
+            for (int row = 0; row < columnArray.GetArrayLength(); row++)
+            {
+                var cell = columnArray[row];
+
+                string value = cell.GetString();
+
+                if (value == "null")
+                    continue;
+
+                abstractObjectMetrix[x,row] = PolymorphicJson.AbstractObjectBuilder(value);
+            }
+            x++;
+         } 
+
+        return new Layer(layerType,LayerName,abstractObjectMetrix);
+    }
+
+
 }
 
 
