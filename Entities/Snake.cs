@@ -1,5 +1,4 @@
 ﻿using Raylib_cs;
-using Snake.Core.Timing;
 using Snake.Utils;
 
 namespace Snake.Entities.Snake;

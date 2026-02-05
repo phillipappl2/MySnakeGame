@@ -1,5 +1,4 @@
 ﻿using Raylib_cs;
-using Snake.Core.Timing;
 using Snake.Entities.Snake;
 using Snake.Utils;
 
@@ -12,8 +11,9 @@ public class Game
     private static Game? _instance;
     private readonly string _title;
     //Tempo tempo = new Tempo();
-    int MaxBPM = 240;
-    int currentBPM = 0;
+    float BPM = 90f;
+    private float elapsedTime = 0f;
+
     Player player = new Player(4, 4);
 
     //_updatables contains all the interfaces that need to be updated every frame.
@@ -79,16 +79,21 @@ public class Game
     { 
         foreach (var updatable in _updatables) updatable.UpdateDirection();
     }
-
+    
     private void MoveSnakes()
     {
-        if ((currentBPM % (MaxBPM / 16)) == 0)
-        {
-            foreach (var updatable in _updatables) updatable.Move();
-        }
+        float deltaTime = Raylib.GetFrameTime();
+        elapsedTime += deltaTime;
 
-        currentBPM++;
-        currentBPM = currentBPM % MaxBPM;
+        float interval = 60f / BPM;
+
+        while (elapsedTime >= interval)
+        {
+            foreach (var updatable in _updatables)
+                updatable.Move();
+
+            elapsedTime -= interval;
+        }
     }
 
     private void Draw()
