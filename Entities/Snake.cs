@@ -3,10 +3,16 @@ using Snake.Utils;
 
 namespace Snake.Entities.Snake;
 
-public class Snake
+public class Snake: IUpdatable
 {
     private readonly List<Segment> _bodySegments;
     private readonly int _snakeCellSize = 100;
+    private int BPM = 60;
+    int IUpdatable.BPM 
+    {   
+        get => BPM; 
+        set => BPM = value; 
+    }
 
     private Direction _direction = Direction.Left;
 
@@ -74,5 +80,9 @@ public class Snake
     {
         foreach (var body in _bodySegments)
             Fill(body);
+    }
+
+    public void UpdateDirection()
+    {
     }
 }

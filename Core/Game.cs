@@ -10,9 +10,7 @@ public class Game
     //Singleton pattern
     private static Game? _instance;
     private readonly string _title;
-    //Tempo tempo = new Tempo();
-    float BPM = 90f;
-    private float elapsedTime = 0f;
+    public static float elapsedTime = 0f;
 
     Player player = new Player(4, 4);
 
@@ -53,7 +51,6 @@ public class Game
         Raylib.SetTargetFPS(60);
 
         //Updable objects are registered here
-        //RegsisterObject(new Player(0, 0));
         RegsisterObject(player);
     }
     private void RegsisterObject(IUpdatable system)
@@ -79,7 +76,7 @@ public class Game
     { 
         foreach (var updatable in _updatables) updatable.UpdateDirection();
     }
-    
+/*
     private void MoveSnakes()
     {
         float deltaTime = Raylib.GetFrameTime();
@@ -93,6 +90,21 @@ public class Game
                 updatable.Move();
 
             elapsedTime -= interval;
+        }
+    }
+*/
+
+    private void MoveSnakes()
+    {
+        float deltaTime = Raylib.GetFrameTime();
+        elapsedTime += deltaTime;
+
+        foreach (var updatable in _updatables) {
+            while (elapsedTime >= 60f / updatable.BPM)
+            {
+                updatable.Move();
+                elapsedTime -= 60f / updatable.BPM;
+            }
         }
     }
 
