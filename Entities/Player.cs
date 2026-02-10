@@ -5,8 +5,10 @@ namespace Snake.Entities.Snake;
 
 public class Player : Snake, IDrawable
 {
-    public Player(int posX, int posY) : base(posX, posY)
+    public Player(int posX, int posY, int maxBPM) : base(posX, posY)
     {
+        BPM = maxBPM;
+        elapsedTime = 0f;
     }
 
     public new void Draw()

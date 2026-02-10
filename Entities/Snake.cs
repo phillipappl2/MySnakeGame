@@ -7,13 +7,8 @@ public class Snake: IUpdatable
 {
     private readonly List<Segment> _bodySegments;
     private readonly int _snakeCellSize = 100;
-    private int BPM = 60;
-    int IUpdatable.BPM 
-    {   
-        get => BPM; 
-        set => BPM = value; 
-    }
-
+    public int BPM { get; set; }
+    public float elapsedTime { get; set; }
     private Direction _direction = Direction.Left;
 
     private int _lastX;
@@ -31,9 +26,6 @@ public class Snake: IUpdatable
 
         _lastX = posX;
         _lastY = posY;
-
-        //Tempo tempo = Tempo.Instance;
-        //tempo.OnEvery(4, new Bpm(120), () => Move());
     }
     
     public void Move()
