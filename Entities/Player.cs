@@ -3,14 +3,12 @@ using Snake.Utils;
 
 namespace Snake.Entities.Snake;
 
-public class Player : Snake, IUpdatable, IDrawable
+public class Player : Snake, IDrawable
 {
-    public Player(int posX, int posY) : base(posX, posY)
+    public Player(int posX, int posY, int maxBPM) : base(posX, posY)
     {
-    }
-
-    public void UpdateDirection()
-    {
+        BPM = maxBPM;
+        elapsedTime = 0f;
     }
 
     public new void Draw()

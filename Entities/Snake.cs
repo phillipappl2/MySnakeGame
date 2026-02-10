@@ -1,14 +1,14 @@
 ﻿using Raylib_cs;
-using Snake.Core.Timing;
 using Snake.Utils;
 
 namespace Snake.Entities.Snake;
 
-public class Snake
+public class Snake: IUpdatable
 {
     private readonly List<Segment> _bodySegments;
     private readonly int _snakeCellSize = 100;
-
+    public int BPM { get; set; }
+    public float elapsedTime { get; set; }
     private Direction _direction = Direction.Left;
 
     private int _lastX;
@@ -26,9 +26,6 @@ public class Snake
 
         _lastX = posX;
         _lastY = posY;
-
-        //Tempo tempo = Tempo.Instance;
-        //tempo.OnEvery(4, new Bpm(120), () => Move());
     }
     
     public void Move()
@@ -75,5 +72,9 @@ public class Snake
     {
         foreach (var body in _bodySegments)
             Fill(body);
+    }
+
+    public void UpdateDirection()
+    {
     }
 }
