@@ -1,4 +1,6 @@
 using System.Dynamic;
+using System.Text;
+using System.Text.Json;
 
 public class Level
 {
@@ -92,4 +94,34 @@ public class Level
     }
 
   }
+
+  public string JsonBuilder()
+  {
+
+    var options = new JsonWriterOptions
+    {
+      Indented = true
+    };
+
+    using var stream = new MemoryStream();
+    using var writer = new Utf8JsonWriter(stream, options);
+
+    writer.WriteStartObject("Levels");
+    writer.WriteStartArray("layer");
+
+    foreach (var layer in _layers)
+    {
+      writer.WriteStringValue(layer.JsonBuilder());
+    }
+    writer.WriteEndArray();
+    writer.WriteEndObject();
+
+    return Encoding.UTF8.GetString(stream.ToArray());
+
+
+  }
+
+
+
+
 }

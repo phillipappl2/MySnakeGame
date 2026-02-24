@@ -1,3 +1,5 @@
+using System.Text.Json;
+using Snake.Assets;
 using Snake.Utils;
 
 public class GameMap : IDrawable
@@ -20,11 +22,11 @@ public class GameMap : IDrawable
      public void Draw()
     {
 
-        LoadedLevel.Draw();
+
 
     }
 
-   
+
 
    
 }

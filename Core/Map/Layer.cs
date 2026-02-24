@@ -112,7 +112,7 @@ public class Layer
 
          writer.WriteStartObject("ColumnObject");
         for (int x = 0; x < Width; x++)
-       {
+        {
          
             writer.WriteStartArray($"Column_{x}");
             for (int y = 0; y < Height; y++)
