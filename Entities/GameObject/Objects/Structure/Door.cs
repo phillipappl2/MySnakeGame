@@ -47,4 +47,9 @@ public class Door : StaticStructure, IdrawObjcet
 
         }
     }
+
+    public VisualElements GetVisualElement()
+    {
+        return visualElements;
+    }
 }

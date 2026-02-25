@@ -127,6 +127,16 @@ static class PolymorphicJson
                 return Encoding.UTF8.GetString(stream.ToArray());
              
             }
+            case Door door:
+                {
+                writer.WriteStartObject();
+                writer.WriteString("AbstractObjectType", "Door");
+                writer.WriteString("VisualElements", VisualElementBuilder(door.GetVisualElement()));
+                writer.WriteBoolean("IsOpen", door.IsDoorOpen());
+                writer.WriteEndObject();
+                writer.Flush();
+                return Encoding.UTF8.GetString(stream.ToArray());
+                }
                 
             // Add more cases as needed
             default:
