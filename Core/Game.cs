@@ -59,47 +59,7 @@ public class Game
         Raylib.InitWindow(Width, Height, _title);
         Raylib.SetTargetFPS(60);
 
-        //Updable objects are registered here
-        //RegsisterObject(new Player(0, 0));
-
-        //Door t = new Door(new TextureRectangle("/resources/Texture/Test/Happy_smiley_face.png",100,100));
-        var Rectangle1 = new Rectangle(Color.Blue, 100,100);
-       // Console.WriteLine(Rectangle1.JsonDestructor()+"here");
-
-
-        Wall r = new Wall(Rectangle1);
-
-        var stringtest = PolymorphicJson.AbstractObjectBuilder(r);
-        Console.WriteLine(stringtest + " here here");
-
-
-        AbstractObject[,] staticMetrix = 
-        {
-        {null, null, null, null, null },
-        {null, null, r, null, null },
-        {null, r,    r, r, null },
-        {null, null, r, null, null },
-        {null, null   , null   , null   , null }
-        };
-
-    
-    
-        Layer staticLayer = new Layer(LayerType.staticLayer, "staticLayer",staticMetrix);
-
-        var test0 = staticLayer.JsonBuilder();
-        Console.Write(test0);
-
-        var test = Layer.JsonBuilder(test0);
-         
-        var layerList = new List<Layer>(); layerList.Add(test);
-
-        Level level = new Level(layerList);
         
-        GameMap gameMap = new GameMap();
-        gameMap.LoadLevel(level);
-       
-   
-
 
         RegsisterObject(player);
 
@@ -143,8 +103,6 @@ public class Game
     private void Draw()
     {
         Raylib.BeginDrawing();
-
-        GameMap._instance.Draw();
         foreach (var drawable in _drawables) drawable.Draw();
         Raylib.ClearBackground(Color.LightGray);
         Raylib.EndDrawing();
