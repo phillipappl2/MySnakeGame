@@ -9,6 +9,8 @@ namespace Snake.Assets;
 
 public class Game
 {
+    //Git Test
+    
     //Singleton pattern
     private static Game? _instance;
     private readonly string _title;
