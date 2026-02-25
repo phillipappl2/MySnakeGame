@@ -33,6 +33,7 @@ public class Game
     public void GameLoop()
     {
         Initalize();
+        player2.Grow(player2._bodySegments[0]);
 
         while (!Raylib.WindowShouldClose())
         {

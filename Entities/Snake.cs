@@ -5,7 +5,7 @@ namespace Snake.Entities.Snake;
 
 public class Snake: IUpdatable
 {
-    private readonly List<Segment> _bodySegments;
+    public readonly List<Segment> _bodySegments;
     private readonly int _snakeCellSize = 100;
     public int BPM { get; set; }
     public float elapsedTime { get; set; }
