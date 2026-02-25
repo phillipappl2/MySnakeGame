@@ -1,4 +1,5 @@
-﻿using Raylib_cs;
+﻿using System.Diagnostics;
+using Raylib_cs;
 using Snake.Entities.Snake;
 using Snake.Utils;
 
@@ -7,6 +8,8 @@ namespace Snake.Assets;
 
 public class Game
 {
+    //Git Test
+    
     //Singleton pattern
     private static Game? _instance;
     private readonly string _title;
@@ -14,9 +17,13 @@ public class Game
     Player player1 = new Player(10, 4, 60);
     Player player2 = new Player(10, 5, 120);
 
-    //_updatables contains all the interfaces that need to be updated every frame.
-    //_drawables contain all the interfaces that need to be drawn every frame.
-    //It was important to separate the two because of the way the game loop works.
+    public GameMap gameMap1;
+
+    //_updatables contains all the interfaces that nee      
+    // var layerList = d. be updated every frame.
+    //_drawables contai     
+    // var layerList = n all the interfaces that need. be drawn every frame.
+    //It was important. separate the two because of the way the game loop works.
     private List<IDrawable> _drawables = [];
     private List<IUpdatable> _updatables = [];
 
@@ -98,7 +105,6 @@ public class Game
     private void Draw()
     {
         Raylib.BeginDrawing();
-
         foreach (var drawable in _drawables) drawable.Draw();
         Raylib.ClearBackground(Color.LightGray);
         Raylib.EndDrawing();

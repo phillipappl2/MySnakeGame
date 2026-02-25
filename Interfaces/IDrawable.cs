@@ -1,4 +1,4 @@
-﻿namespace Snake.Utils;
+﻿
 
 public interface IDrawable
 {

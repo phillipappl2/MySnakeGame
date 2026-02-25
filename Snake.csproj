@@ -8,12 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Raylib-cs" Version="7.0.2" />
+    <Folder Include="Assets\" />
+    <Folder Include="Scenes\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Assets\" />
-    <Folder Include="Scenes\" />
+    <PackageReference Include="Raylib-cs" Version="7.0.2" />
   </ItemGroup>
 
 </Project>

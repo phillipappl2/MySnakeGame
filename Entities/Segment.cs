@@ -15,3 +15,4 @@ public class Segment
         (X, Y) = (x, y);
     }
 }
+
