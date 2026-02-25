@@ -22,7 +22,7 @@ public class GameMap : IDrawable
      public void Draw()
     {
 
-
+         LoadedLevel.Draw();
 
     }
 }
