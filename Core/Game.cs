@@ -8,8 +8,7 @@ namespace Snake.Assets;
 
 
 public class Game
-{
-    
+{  
     //Singleton pattern
     private static Game? _instance;
     private readonly string _title;
