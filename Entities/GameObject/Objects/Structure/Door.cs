@@ -4,7 +4,7 @@ using Raylib_cs;
 public class Door : StaticStructure, IdrawObjcet
 {
 
-    public bool isOpen { get; private set; }
+    private bool isOpen;
 
     [JsonIgnore]
     private VisualElements visualElements;
@@ -12,9 +12,17 @@ public class Door : StaticStructure, IdrawObjcet
     public Door(VisualElements visualElements)
     {
         this.visualElements = visualElements;
+        isOpen = false;
+    }
+
+    public Door(VisualElements visualElements, bool isOpen)
+    {
+        
+        this.visualElements = visualElements;
+        this.isOpen = isOpen;
+
     }
  
-
     public void OpenDoor()
     {
         isOpen = true;

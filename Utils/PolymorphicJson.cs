@@ -94,6 +94,14 @@ static class PolymorphicJson
                     var visualElement = VisualElementBuilder(visualElementJson);
                     return new Wall(visualElement);
                 }
+            case "Door"
+                :{
+                    var visualElementJson = objects.RootElement.GetProperty("VisualElements").GetString() ?? "";
+                    bool IsOpen = objects.RootElement.GetProperty("IsOpen").GetBoolean();
+                    var visualElement = VisualElementBuilder(visualElementJson);
+
+                    return new Door(visualElement, IsOpen);
+                }
             default:
                 throw new Exception("Unknown type");
             
